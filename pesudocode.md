@@ -33,6 +33,8 @@ off grey background
         list remains displayed on page
         able to continue to add items to list
             added items expand down the page
+            each item is a ul and will need to e an oject with a default status of active 
+        
 **See number of remaining items**
     items with active.state are counted and total number is displaye on page
     ?could maybe have total number of completed items on page?
