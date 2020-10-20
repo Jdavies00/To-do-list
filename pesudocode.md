@@ -59,5 +59,21 @@ off grey background
     strike through item on the list will act as soft delete
     archive is own list that accept any item regadless of active or not
 
-        
 
+      change user in put
+        this.setSate
+      add to todo list 
+      remove from todao list  
+
+
+checkbox
+export default funtion todo {}
+    return
+
+
+
+
+    local storage
+
+    is essentially cookies that can hold info to skip import commands
+    
