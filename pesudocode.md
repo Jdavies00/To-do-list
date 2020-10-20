@@ -76,4 +76,17 @@ export default funtion todo {}
     local storage
 
     is essentially cookies that can hold info to skip import commands
-    
+
+
+comment is jsx were causeing me alot of problem
+return (
+      <div className="todoListMain">
+        <div className="header">
+        {/* dont need to listen for an event b/c button has a type attribute set to submit */}
+          <form onSubmit = {this.addItem}>
+            <input ref={(a) => this._inputElement = a}           
+                  placeholder=" What would you like to do? ">                  {/* clicking on the button whose type is submit is the equivalent of the submit event on the form being fired. */}
+            </input>
+            <button type="submit"> + </button> 
+          </form> {/* refs to DOM to stor a referance to the input elelment property */}
+        </div>
