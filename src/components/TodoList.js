@@ -1,45 +1,76 @@
 import React, { Component } from "react";
 import TodoItems from "./TodoItems";
 
+
 class TodoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {//defining the state object int the constructor
+    this.state = {
       newInput: "",
-      items: [],     //will store input in array 'items' that defines state
-  };
-  // this.inputElement= (element) =>{// binds props 'this' to additem funtion 'list' calls event handler
-  //   this.textInput = elelment;
-  // };
-  this.addItem = this.addItem.bind(this)
-  this.userInput = this.userInput.bind(this);
+      items: [],
+    };
+    this.addItem = this.addItem.bind(this)
+    this.userInput = this.userInput.bind(this);
+    //this.handleChange = this.handlechange.bind(this)
+    this.changeStatus = this.changeStatus.bind(this);
+
 
   }
 
   addItem(e) {
     if (this.state.newInput !== "") { //as long as the input feild is not empty
-      var newItem = {//creat new var called new item will store an object
-        text: this.state.newInput,//vale of text is defined by the input
-        key: new Date().getTime(),// objects unique is set by the time
+      var newItem = {
+        text: this.state.newInput,
+        key: new Date().getTime(),
+        isCompleted: false,
       };
-      this.setState((prevState) => {// gives set state the property of the previous state
-        return {
-          newInput:'',
-          
-          items: prevState.items.concat(newItem) // and returns adds the old items to the array + the new items
-        };// return a new array 
-      });
-      // this.inputElement.value = "";
-    }
-    e.preventDefault();//prevent defaut reload
+      console.log(this.key)
 
+      this.setState((prevState) => {
+        return {
+          newInput: '',
+          items: prevState.items.concat(newItem)
+        };
+      });
+    }
+    e.preventDefault();
   }
-  componentDidUpdate(){
-    console.log(this.state.items);
+
+  changeStatus(key){
+    console.log(key)
+    let deletedArray = this.state.items.map(function(item, index){
+      console.log(item)
+      if(item.key === key){
+        item.isCompleted = item.isCompleted === false ? true : false
+      }
+      return item
+    });
+    console.log(deletedArray)
+  this.setState({items:deletedArray}) 
+}
+
+  //     return item
+  // })
+  // this.setState({items:deletedArray})
+
+  // removeItem(){
+  //   if (this.state)
+
+
+
+  componentDidUpdate() {
+    localStorage.setItem('items', JSON.stringify(this.state.items))
+  }
+  componentDidMount() {
+    if (localStorage.getItem('items') != null) {
+      var localToDoList = JSON.parse(localStorage.getItem('items'));
+      this.setState({
+        items: localToDoList,
+      })
+    }
   }
 
   userInput(e) {
-    console.log(e.target.value);
     this.setState({
       newInput: e.target.value,
     });
@@ -50,6 +81,7 @@ class TodoList extends Component {
   render() {
     return (
       <div className="todoListMain">
+      <h2 className = "toDoHeader">2 Much 2 Do 2 Day</h2>
         <div className="header">
           <form onSubmit={this.addItem}>
             <input
@@ -62,11 +94,12 @@ class TodoList extends Component {
           </form>
         </div>
 
-        <TodoItems entries={this.state.items} />
+        <TodoItems entries={this.state.items} handelTodoCheck = {this.changeStatus} />
       </div>
     );
   }
 }
+
 
 export default TodoList;
 
